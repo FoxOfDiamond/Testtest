@@ -1,0 +1,2 @@
+<label for="editForm">Edit profile:</label><br>
+<textarea id="editForm" rows="30">{{OLDPROFILE}}</textarea><br>

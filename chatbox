@@ -1,0 +1,3 @@
+<label for="chatBox">{{USERNAME}}</label>
+<input id="chatBox" type="text"><br>
+<button id="sendButton">Send</button><br>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    {{LOGINFORM}}
+    <style>
+    nav ul{width:90%;min-height:400px;height:400px;max-height: auto;}
+    nav ul{overflow:hidden; overflow-y:scroll;}
+    input{width:50%}
+    </style>
+    <nav>
+        <ul id="messageBoard">
+            
+        </ul>
+    </nav><br>
+    {{CHATBOX}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+    <script>
+        const socket=io({path:"/chat"});
+        socket.on('connect',()=>{
+            socket.emit('auth',document.cookie)
+            console.log("Connected")
+        })
+        socket.on('message',(msg)=>{
+            console.log(msg);
+            document.getElementById("messageBoard").insertAdjacentHTML('beforeend',msg+"<br>");
+        })
+        if (document.getElementById("sendButton")){
+            document.getElementById("sendButton").addEventListener("click", () => {
+                socket.emit('message',document.getElementById("chatBox").value)
+            });
+        }
+    </script>
+</html>

@@ -1,0 +1,24 @@
+<body>
+<button id="saveButton">Save</button><br>
+<script> 
+    document.getElementById("saveButton").addEventListener("click", async () => {
+        try {
+            const response=await fetch(location.origin,{
+                method:"POST",
+                body:JSON.stringify({
+                    request:"edit",
+                    profile:document.getElementById("editForm").value
+                })
+            });
+            response.body.getReader().read().then((reply)=>{
+                let raws=new TextDecoder().decode(reply.value.buffer)
+                raws=raws.split("/");
+                window.confirm(raws[0]);
+                location.href="/user/"+raws[1]+"/"
+            });
+        }catch(err){
+            console.error(err);
+        }
+    });
+</script>
+</body>

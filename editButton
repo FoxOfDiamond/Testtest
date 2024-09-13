@@ -1,0 +1,8 @@
+<body>
+<button id="editButton">Edit</button><br>
+<script> 
+    document.getElementById("editButton").addEventListener("click", async () => {
+        location.href="/edit/"
+    });
+</script>
+</body>

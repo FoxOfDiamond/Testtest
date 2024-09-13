@@ -1,0 +1,21 @@
+<body>
+<button id="logoutButton">Log out</button><br>
+<script> 
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+        try {
+            const response=await fetch("http://localhost:1000/",{
+                method:"POST",
+                body:JSON.stringify({
+                    request:"logOut"
+                })
+            });
+            response.body.getReader().read().then((reply)=>{
+                window.confirm(new TextDecoder().decode(reply.value.buffer));
+                location.reload();
+            });
+        }catch(err){
+            console.error(err);
+        }
+    });
+</script>
+</body>
