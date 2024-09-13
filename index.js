@@ -34,7 +34,7 @@ const server=http.createServer((req,res)=>{
         if (path[0]=="favicon.ico"){return}
         function addFormAndSend(data){
             if (authedas){
-                fs.readFile("logoutForm","utf-8",(err,redt)=>{
+                fs.readFile("logoutForm.html","utf-8",(err,redt)=>{
                     if(err){console.error(err);}
                     data=data.replace("{{LOGINFORM}}","Logged in as "+authedas+"<br>"+redt);
                     data=data.replace(/\{{.*?\}}/g,'');
@@ -42,7 +42,7 @@ const server=http.createServer((req,res)=>{
                     res.end();
                 })
             }else{
-                fs.readFile("loginForm","utf-8",(err,redt)=>{
+                fs.readFile("loginForm.html","utf-8",(err,redt)=>{
                     if(err){console.error(err);}
                     data=data.replace("{{LOGINFORM}}",redt);
                     data=data.replace(/\{{.*?\}}/g,'');
@@ -94,7 +94,7 @@ const server=http.createServer((req,res)=>{
                                     }
                                     data=data.replace("{{USERDATA}}",dtstring)
                                     if (authedas==usdta[0].username){
-                                        fs.readFile("editButton","utf-8",(err,redt)=>{
+                                        fs.readFile("editButton.html","utf-8",(err,redt)=>{
                                             if(err){console.error(err);}
                                             data=data.replace("{{EDITBUTTON}}",redt);
                                             addFormAndSend(data);
@@ -110,9 +110,9 @@ const server=http.createServer((req,res)=>{
                 case("edit"):
                     fs.readFile("edit.html","utf-8",(err,data)=>{
                         if (authedas){
-                            fs.readFile("editForm","utf-8",(err,pform)=>{
+                            fs.readFile("editForm.html","utf-8",(err,pform)=>{
                                 data=data.replace("{{USERDATA}}","Username:"+authedas+"<br>"+"Profile:<br>"+pform);
-                                fs.readFile("saveButton","utf-8",(err,sbt)=>{
+                                fs.readFile("saveButton.html","utf-8",(err,sbt)=>{
                                     data=data.replace("{{SAVEBUTTON}}",sbt);
                                     db.all(`select * from LoginData where username="`+authedas+`"`,(err,usdta)=>{
                                         data=data.replace("{{OLDPROFILE}}",usdta[0].profile);
@@ -128,7 +128,7 @@ const server=http.createServer((req,res)=>{
                 case("chat"):
                     fs.readFile("chat.html","utf-8",(err,data)=>{
                         if (authedas){
-                            fs.readFile("chatbox","utf-8",(err,efrm)=>{
+                            fs.readFile("chatbox.html","utf-8",(err,efrm)=>{
                                 data=data.replace("{{CHATBOX}}",efrm)
                                 data=data.replace("{{USERNAME}}",authedas+":")
                                 addFormAndSend(data);
